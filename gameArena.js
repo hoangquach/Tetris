@@ -24,6 +24,8 @@ function drawBoard(){
         }
     }
 }
+
+//drawSquare(3,3,"red");
 function drawSquare(x,y,color){
     ctx.fillStyle= color;
     ctx.fillRect(x*SQ,y*SQ,SQ,SQ);
@@ -35,22 +37,14 @@ function drawSquare(x,y,color){
 
 //sukh
 
-const BLOCKS = [
-    [Z,"red"],
-    [S,"green"],
-    [T,"yellow"],
-    [O,"blue"],
-    [L,"purple"],
-    [I,"cyan"],
-    [J,"orange"]
-];
 
 function randomBlock(){
-    let r = randomB = Math.floor(Math.random() * BLOCKS.length)
+    let r = Math.floor(Math.random() * BLOCKS.length);
+
     return new Block( BLOCKS[r][0], BLOCKS[r][1]);
 }
 
-let b = new Block(BLOCKS[0][0],BLOCKS[0][1]);
+let b = randomBlock();
 
 function Block(tetromino,color){
     this.tetromino = tetromino;
@@ -59,7 +53,7 @@ function Block(tetromino,color){
     this.tetrnominoNumber = 0;
     this.activeTetromino = this.tetromino[this.tetrnominoNumber];
 
-    this.x = 5;
+    this.x = 3;
     this.y = 5;
 }
 
@@ -70,7 +64,7 @@ Block.prototype.fill = function(color){
                 drawSquare(this.x + c, this.y + r, color);
             }
         }
-    }
+    } 
 }
 
 Block.prototype.draw = function(){
@@ -80,5 +74,16 @@ Block.prototype.draw = function(){
 Block.prototype.unDraw = function(){
     this.fill(VACANT);
 }
+
+
+const BLOCKS = [
+    [Z,"red"],
+    [S,"green"],
+    [T,"yellow"],
+    [O,"blue"],
+    [L,"purple"],
+    [I,"cyan"],
+    [J,"orange"]
+];
 
 b.draw;
