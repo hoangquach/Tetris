@@ -36,47 +36,7 @@ function drawSquare(x,y,color){
 // ------------------------
 
 //sukh
-
-
-function randomBlock(){
-    let r = Math.floor(Math.random() * BLOCKS.length);
-
-    return new Block( BLOCKS[r][0], BLOCKS[r][1]);
-}
-
-let b = randomBlock();
-
-function Block(tetromino,color){
-    this.tetromino = tetromino;
-    this.color = color;
-
-    this.tetrnominoNumber = 0;
-    this.activeTetromino = this.tetromino[this.tetrnominoNumber];
-
-    this.x = 3;
-    this.y = 5;
-}
-
-Block.prototype.fill = function(color){
-    for( r = 0; r < this.activeTetromino.length; r++){
-        for( c = 0; c < this.activeTetromino.length;c++){
-            if(this.activeTetromino[r][c]){
-                drawSquare(this.x + c, this.y + r, color);
-            }
-        }
-    } 
-}
-
-Block.prototype.draw = function(){
-    this.fill(this.color);
-}
-
-Block.prototype.unDraw = function(){
-    this.fill(VACANT);
-}
-
-
-const BLOCKS = [
+const PIECES = [
     [Z,"red"],
     [S,"green"],
     [T,"yellow"],
@@ -85,5 +45,60 @@ const BLOCKS = [
     [I,"cyan"],
     [J,"orange"]
 ];
+function randomPiece(){
+    let r = randomN = Math.floor(Math.random() * PIECES.length) // 0 -> 6
+    return new Piece( PIECES[r][0],PIECES[r][1]);
+}
 
-b.draw;
+let p = randomPiece();
+
+// The Object Piece
+function Piece(tetromino,color){
+    this.tetromino = tetromino;
+    this.color = color;
+    
+    this.tetrominoN = 0; // we start from the first pattern
+    this.activeTetromino = this.tetromino[this.tetrominoN];
+    
+    // we need to control the pieces
+    this.x = 3;
+    this.y = 1;
+}
+
+// fill function
+
+Piece.prototype.fill = function(color){
+    for( r = 0; r < this.activeTetromino.length; r++){
+        for(c = 0; c < this.activeTetromino.length; c++){
+            // we draw only occupied squares
+            if( this.activeTetromino[r][c]){
+                drawSquare(this.x + c,this.y + r, color);
+            }
+        }
+    }
+}
+//alert("one");
+
+
+
+Piece.prototype.draw = function(){
+    this.fill(this.color);
+
+}
+Piece.prototype.unDraw = function(){
+    this.fill(VACANT);
+}
+p.draw();
+/*Piece.prototype.moveDown = function(){
+    if(!this.collision(0,1,this.activeTetromino)){
+        this.unDraw();
+        this.y+5;
+        this.draw();
+    }else{
+        // we lock the piece and generate a new one
+        this.lock();
+        p = randomPiece();
+    }
+    
+}
+p.moveDown(); */
