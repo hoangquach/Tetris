@@ -36,24 +36,25 @@ function drawSquare(x,y,color){
 // ------------------------
 
 //sukh
-const PIECES = [
-    [Z,"red"],
-    [S,"green"],
-    [T,"yellow"],
-    [O,"blue"],
-    [L,"purple"],
-    [I,"cyan"],
+const BLOCKS = [
+    [Z,"green"],
+    [S,"red"],
+    [T,"blue"],
+    [O,"yellow"],
+    [L,"cyan"],
+    [I,"purple"],
     [J,"orange"]
 ];
-function randomPiece(){
-    let r = randomN = Math.floor(Math.random() * PIECES.length) // 0 -> 6
-    return new Piece( PIECES[r][0],PIECES[r][1]);
+
+function randomBlock(){
+    let r = randomN = Math.floor(Math.random() * BLOCKS.length) // 0 -> 6
+    return new Block( BLOCKS[r][0],BLOCKS[r][1]);
 }
 
-let p = randomPiece();
+let p = randomBlock();
 
 // The Object Piece
-function Piece(tetromino,color){
+function Block(tetromino,color){
     this.tetromino = tetromino;
     this.color = color;
     
@@ -61,13 +62,13 @@ function Piece(tetromino,color){
     this.activeTetromino = this.tetromino[this.tetrominoN];
     
     // we need to control the pieces
-    this.x = 3;
-    this.y = 1;
+    this.x = 4;
+    this.y = 2;
 }
 
 // fill function
 
-Piece.prototype.fill = function(color){
+Block.prototype.fill = function(color){
     for( r = 0; r < this.activeTetromino.length; r++){
         for(c = 0; c < this.activeTetromino.length; c++){
             // we draw only occupied squares
@@ -81,11 +82,11 @@ Piece.prototype.fill = function(color){
 
 
 
-Piece.prototype.draw = function(){
+Block.prototype.draw = function(){
     this.fill(this.color);
 
 }
-Piece.prototype.unDraw = function(){
+Block.prototype.unDraw = function(){
     this.fill(VACANT);
 }
 p.draw();
